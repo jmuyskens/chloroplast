@@ -6,8 +6,8 @@ sat=$1
 frame=$2
 year=$3
 doy=$(printf "%03d" $((10#$4)))
-hour=$5
-minute=$6
+hour=$(printf "%02d" $5)
+minute=$(printf "%02d" $6)
 dst_path=$7
 
 start_time="$year$doy$hour$minute"
@@ -33,8 +33,10 @@ python weight.py $start_time.nr.tif 4:8 $start_time.blu.toa.tif $start_time.grn.
 rio stack --overwrite --rgb --co compress=lzw $start_time.red.toa.tif $start_time.grn.tif $start_time.blu.toa.tif $start_time.rgb.tif
 
 # blehhh
-convert -gamma 1.5 -sigmoidal-contrast 10,10% -modulate 100,150 -channel B -gamma 0.55 -channel G -gamma 0.7 +channel -gamma 0.7 $start_time.rgb.tif $dst_path
+#convert -gamma 1.5 -sigmoidal-contrast 10,10% -modulate 100,150 -channel B -gamma 0.55 -channel G -gamma 0.7 +channel -gamma 0.7 $start_time.rgb.tif $dst_path
+#convert -gamma 2.5 -sigmoidal-contrast 5,25% -modulate 100,190 -channel B -gamma 0.55 -channel G -gamma 0.7 +channel -gamma 0.7 +sigmoidal-contrast 0,15% -resize 2560x1536 $start_time.rgb.tif $dst_path
+convert -gamma 2.5 -sigmoidal-contrast 5,25% -modulate 100,190 -channel B -gamma 0.55 -channel G -gamma 0.7 +channel -gamma 0.7 +sigmoidal-contrast 0,15% $start_time.rgb.tif $dst_path
 
-rio edit-info $dst_path --like $start_time.blu.toa.tif --crs like --transform like --nodata 0
+#rio edit-info $dst_path --like $start_time.blu.toa.tif --crs like --transform like --nodata 0
 
-rm $start_time.red.toa.tif $start_time.blu.toa.tif $start_time.nr.tif $start_time.nir.toa.tif $start_time.grn.tif
+#rm $start_time.red.toa.tif $start_time.blu.toa.tif $start_time.nr.tif $start_time.nir.toa.tif $start_time.grn.tif $start_time.rgb.tif

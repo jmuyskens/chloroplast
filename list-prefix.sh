@@ -14,7 +14,7 @@ dir="ABI-L1b-Rad$frame/$year/$doy/$hour/"
 if [ "$frame" == "M" ]; then
     frame=M1
 fi
-filename="OR_ABI-L1b-Rad$frame-M3C${band}_${sat}_s$year$doy$hour$minute"
+filename="OR_ABI-L1b-Rad$frame-M6C${band}_${sat}_s$year$doy$hour$minute"
 
 prefix="$dir$filename"
 
