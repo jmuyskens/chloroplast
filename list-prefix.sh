@@ -2,7 +2,7 @@
 
 set -eu
 
-sat=$1
+sat=$1 #must have "G" prefix for ex. "G16"
 frame=$2
 band=$(printf "%02d" $((10#$3)))
 year=$4
