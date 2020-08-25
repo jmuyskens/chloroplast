@@ -5,7 +5,7 @@
 #
 # 1. We use both the netCDF library and rasterio, even through
 #    we could make do with either one alone. netCDF reads out
-#    the data much faster (bypassing GDAL’s driver, which is
+#    the data much faster (bypassing GDAL's driver, which is
 #    very slow on GOES-16 netCDF files, I *think* because of
 #    an interaction between how it's compressed and the fact
 #    that it's south-up). Rasterio, on the other hand, is useful

@@ -8,9 +8,9 @@ year=$3
 doy=$(printf "%03d" $((10#$4)))
 hour=$(printf "%02d" $5)
 minute=$(printf "%02d" $6)
-dst_path=$7
 
 start_time="$year$doy$hour$minute"
+dst_path="${7}/${sat}_${start_time}.jpg"
 
 blu=`./list-prefix.sh $sat $frame 1 $year $doy $hour $minute`
 red=`./list-prefix.sh $sat $frame 2 $year $doy $hour $minute`
@@ -22,7 +22,7 @@ nir=`./list-prefix.sh $sat $frame 3 $year $doy $hour $minute`
 
 parallel -j1 ./toa.sh $start_time.{}.nc ::: blu red nir
 
-parallel -j3 gdalwarp -wm 1000 -r average -tr 1002.0086577437706 1002.0086577437706 $start_time.{}.toa.tif $start_time.{}.toa.resized.tif ::: blu red nir
+parallel -j3 gdalwarp -q -wm 1000 -r average -tr 1002.0086577437706 1002.0086577437706 $start_time.{}.toa.tif $start_time.{}.toa.resized.tif ::: blu red nir
 
 parallel mv $start_time.{}.toa.resized.tif $start_time.{}.toa.tif ::: blu red nir
 
@@ -39,4 +39,4 @@ convert -gamma 2.5 -sigmoidal-contrast 5,25% -modulate 100,190 -channel B -gamma
 
 #rio edit-info $dst_path --like $start_time.blu.toa.tif --crs like --transform like --nodata 0
 
-#rm $start_time.red.toa.tif $start_time.blu.toa.tif $start_time.nr.tif $start_time.nir.toa.tif $start_time.grn.tif $start_time.rgb.tif
+rm $start_time.red.toa.tif $start_time.blu.toa.tif $start_time.nr.tif $start_time.nir.toa.tif $start_time.grn.tif #$start_time.rgb.tif

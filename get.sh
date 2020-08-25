@@ -12,5 +12,5 @@ fullpath="s3://noaa-${longsat}/$1"
 echo $fullpath
 
 if [ ! -f $dst ]; then
-    aws s3 cp $fullpath $dst
+    aws s3 cp $fullpath $dst --only-show-errors
 fi
