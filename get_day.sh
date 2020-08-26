@@ -19,6 +19,6 @@ for hour in $(seq $starthour $endhour)
 do
 	#seq 1 5 59 | parallel get_minute
 	output="/mnt/beyonce/data/goes/frames"
-	parallel -j 6 ./rgb_frame.sh G$satellite C 2020 $day $hour {} $output ::: $(seq 1 5 59)
+	parallel -j 6 ./watervapor_frame.sh G$satellite C 2020 $day $hour {} $output ::: $(seq 1 5 59)
 	#parallel 'echo "{} /mnt/beyonce/data/goes/frames/g16c_${day}$(printf %02d $hour)$(printf %02d {}).jpg"' ::: $(seq 1 5 59)
 done
