@@ -45,4 +45,4 @@ convert $start_time.mlwp.color.tif $start_time.mlwp.hillshade.tif -compose multi
 
 #rio edit-info $dst_path --like $start_time.blu.toa.tif --crs like --transform like --nodata 0
 
-#rm $start_time.mlwp.hillshade.tif $start_time.mlwp.toa.resized.tif $start_time.mlwp.toa.tif $start_time.mlwp.toa.tif $start_time.mlwp.tif #$start_time.rgb.tif
+rm $start_time.mlwp.hillshade.tif $start_time.mlwp.toa.resized.tif $start_time.mlwp.toa.tif $start_time.mlwp.toa.tif $start_time.mlwp.tif #$start_time.rgb.tif
