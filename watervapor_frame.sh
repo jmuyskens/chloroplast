@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eux
+#set -eux
 
 sat=$1
 frame=$2
@@ -38,8 +38,8 @@ gdaldem color-relief $start_time.mlwp.toa.resized.tif watervapor_ramp2.txt $star
 
 ./timestamp.sh $year$doy$hour $start_time.timelabel.mobile.png
 
-convert $start_time.mlwp.color.tif $start_time.mlwp.hillshade.tif -compose multiply -composite -resize 1440x960   $start_time.mlwp.composite.png
-convert $start_time.mlwp.composite.png $start_time.timelabel.mobile.png  -gravity northeast -composite $dst_path
+convert $start_time.mlwp.color.tif $start_time.mlwp.hillshade.tif -compose multiply -composite -resize 1440x960   $start_time.mlwp.composite.png 2> /dev/null
+convert $start_time.mlwp.composite.png $start_time.timelabel.mobile.png  -gravity northeast -composite $dst_path 2> /dev/null
 
 #rio stack --overwrite --rgb --co compress=lzw $start_time.red.toa.tif $start_time.grn.tif $start_time.blu.toa.tif $start_time.rgb.tif
 
@@ -49,5 +49,5 @@ convert $start_time.mlwp.composite.png $start_time.timelabel.mobile.png  -gravit
 #convert -gamma 2.5 -sigmoidal-contrast 5,25% -modulate 100,190 -channel B -gamma 0.55 -channel G -gamma 0.7 +channel -gamma 0.7 +sigmoidal-contrast 0,15% $start_time.rgb.tif $dst_path
 
 #rio edit-info $dst_path --like $start_time.blu.toa.tif --crs like --transform like --nodata 0
-
-rm $start_time.mlwp.composite.png $start_time.timelabel.desktop.png $start_time.timelabel.mobile.png $start_time.mlwp.color.tif $start_time.mlwp.toa.resized.tif $start_time.mlwp.hillshade.tif
+echo $dst_path
+rm $start_time.mlwp.composite.png $start_time.timelabel.mobile.png $start_time.mlwp.color.tif $start_time.mlwp.toa.resized.tif $start_time.mlwp.hillshade.tif
